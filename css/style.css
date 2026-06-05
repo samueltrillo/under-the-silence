@@ -191,7 +191,7 @@ img {
 /* Foto de banda — ancho completo */
 .hero-title-wrap::before {
   z-index: -2;
-  background: url("../assets/images/hero-band.png") center 35% / cover no-repeat;
+  background: url("../assets/images/hero-band.webp") center 35% / cover no-repeat;
   filter: saturate(0.88) brightness(0.92) contrast(1.08);
   transform: scale(1.02);
 }
@@ -308,6 +308,116 @@ img {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted) !important;
+}
+
+/* --- Spotify floating player --- */
+.spotify-float {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  width: min(100% - 2rem, 20rem);
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.spotify-float-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #121212;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.spotify-float-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid var(--border);
+}
+
+.spotify-float-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.spotify-float-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.spotify-float-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.spotify-float .spotify-embed {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: #121212;
+}
+
+.spotify-float #spotify-embed-host {
+  min-height: 152px;
+}
+
+.spotify-float #spotify-embed-host iframe {
+  display: block;
+  width: 100%;
+  height: 152px;
+  border: 0;
+}
+
+.spotify-float-fab {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-left: auto;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #121212;
+  color: var(--text);
+  font-size: 1.35rem;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.spotify-float-fab:hover {
+  border-color: #1db954;
+  color: #1db954;
+  transform: scale(1.05);
+}
+
+.spotify-float.is-collapsed .spotify-float-panel {
+  display: none;
+}
+
+.spotify-float.is-collapsed .spotify-float-fab {
+  display: flex;
 }
 
 /* --- Video --- */
@@ -552,5 +662,12 @@ img {
 
   .section {
     padding: 4rem 1.5rem;
+  }
+
+  .spotify-float {
+    right: 1rem;
+    bottom: 1rem;
+    width: calc(100% - 2rem);
+    max-width: 20rem;
   }
 }

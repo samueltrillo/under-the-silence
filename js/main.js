@@ -8,12 +8,14 @@
   const form = document.getElementById("contact-form");
   const formStatus = document.getElementById("form-status");
   const yearEl = document.getElementById("year");
+  let spotifyPlay = null;
 
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
   initYouTubeEmbed();
+  initSpotify();
 
   function initYouTubeEmbed() {
     const iframe = document.getElementById("youtube-player");
@@ -39,6 +41,87 @@
       encodeURIComponent(videoId) +
       "?" +
       params.toString();
+  }
+
+  function initSpotify() {
+    initSpotifyFloat();
+    initSpotifyPlayer();
+  }
+
+  function initSpotifyFloat() {
+    const widget = document.getElementById("spotify-float");
+    const collapseBtn = widget && widget.querySelector(".spotify-float-toggle");
+    const expandBtn = widget && widget.querySelector(".spotify-float-fab");
+    if (!widget || !collapseBtn || !expandBtn) return;
+
+    function setCollapsed(collapsed) {
+      widget.classList.toggle("is-collapsed", collapsed);
+      collapseBtn.setAttribute("aria-expanded", String(!collapsed));
+      collapseBtn.setAttribute(
+        "aria-label",
+        collapsed ? "Expandir reproductor" : "Minimizar reproductor"
+      );
+      collapseBtn.querySelector("span").textContent = collapsed ? "+" : "−";
+      expandBtn.hidden = !collapsed;
+    }
+
+    collapseBtn.addEventListener("click", function () {
+      setCollapsed(!widget.classList.contains("is-collapsed"));
+    });
+
+    expandBtn.addEventListener("click", function () {
+      setCollapsed(false);
+      if (spotifyPlay) spotifyPlay();
+    });
+  }
+
+  function initSpotifyPlayer() {
+    const host = document.getElementById("spotify-embed-host");
+    if (!host) return;
+
+    const spotifyUri =
+      host.getAttribute("data-spotify-uri") || "spotify:track:56pt6rcbiorpYUP3x4EEre";
+    let controller = null;
+
+    spotifyPlay = function () {
+      if (controller) controller.play();
+    };
+
+    function bindAutoplayFallback() {
+      const resume = function () {
+        spotifyPlay();
+      };
+
+      document.addEventListener("click", resume, { once: true });
+      document.addEventListener("keydown", resume, { once: true });
+      document.addEventListener("touchstart", resume, { once: true, passive: true });
+    }
+
+    window.onSpotifyIframeApiReady = function (IFrameAPI) {
+      IFrameAPI.createController(
+        host,
+        {
+          width: "100%",
+          height: "152",
+          uri: spotifyUri,
+          theme: "dark",
+        },
+        function (embedController) {
+          controller = embedController;
+          spotifyPlay();
+        }
+      );
+    };
+
+    if (!document.querySelector("script[data-spotify-iframe-api]")) {
+      const script = document.createElement("script");
+      script.src = "https://open.spotify.com/embed/iframe-api/v1";
+      script.async = true;
+      script.setAttribute("data-spotify-iframe-api", "");
+      document.body.appendChild(script);
+    }
+
+    bindAutoplayFallback();
   }
 
   function closeNav() {

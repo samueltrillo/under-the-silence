@@ -7,6 +7,8 @@
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta name="description" content="Under The Silence — sitio oficial">
   <title>Under The Silence</title>
+  <link rel="icon" href="assets/images/logo.png" type="image/jpeg">
+  <link rel="apple-touch-icon" href="assets/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -26,7 +28,7 @@
       <a href="#bio">Bio</a>
       <a href="#video">Video</a>
       <a href="#links">Links</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact">Contacto</a>
     </nav>
   </header>
 
@@ -117,7 +119,7 @@
 
     <section id="contact" class="section section-contact">
       <div class="section-inner">
-        <h2 class="section-title">Contact</h2>
+        <h2 class="section-title">Contacto</h2>
         <div class="contact-layout">
           <div class="contact-info">
             <p>Booking, prensa y colaboraciones:</p>
@@ -145,6 +147,40 @@
   <footer class="site-footer">
     <p>&copy; <span id="year"></span> Under The Silence. All rights reserved.</p>
   </footer>
+
+  <aside id="spotify-float" class="spotify-float" aria-label="Reproductor de Spotify">
+    <div class="spotify-float-panel">
+      <div class="spotify-float-header">
+        <span class="spotify-float-label">Now Playing</span>
+        <button
+          type="button"
+          class="spotify-float-toggle"
+          aria-expanded="true"
+          aria-controls="spotify-float-body"
+          aria-label="Minimizar reproductor"
+        >
+          <span aria-hidden="true">−</span>
+        </button>
+      </div>
+      <div class="spotify-float-body" id="spotify-float-body">
+        <div class="spotify-embed">
+          <div
+            id="spotify-embed-host"
+            data-spotify-uri="spotify:track:56pt6rcbiorpYUP3x4EEre"
+            title="Convicción — Under The Silence"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="spotify-float-fab"
+      aria-label="Abrir reproductor de Spotify"
+      hidden
+    >
+      <span class="spotify-float-fab-icon" aria-hidden="true">♫</span>
+    </button>
+  </aside>
 
   <script src="js/main.js"></script>
 </body>
